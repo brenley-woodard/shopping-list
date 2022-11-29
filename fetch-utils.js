@@ -28,3 +28,12 @@ export async function signOutUser() {
 }
 
 /* Data functions */
+export async function createListItem(item, amount) {
+    const response = await client.from('groceries').insert({ item, amount });
+
+    if (response.error) {
+        console.error(response.error.message);
+    } else {
+        return response.data;
+    }
+}

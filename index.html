@@ -43,17 +43,18 @@
 
         <main>
             <section>
-                <form action="create-form">
+                <form class="create-form">
                     <label>
-                        " Quantity: "
-                        <input type="number" name="quantity" min="0" />
+                        Quantity:
+                        <input type="number" name="amount" min="0" />
                     </label>
                     <label>
-                        " Item: "
+                        Item:
                         <input name="item" />
                     </label>
-                    <button>Add Item</button>
+                    <button type="submit">Add Item</button>
                 </form>
+                <p id="error"></p>
                 <ul class="list"></ul>
                 <button class="delete">Delete List</button>
             </section>
