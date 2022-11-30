@@ -37,3 +37,16 @@ export async function createListItem(item, amount) {
         return response.data;
     }
 }
+
+export async function getListItems() {
+    const response = await client
+        .from('groceries')
+        .select('*')
+        .match({ user_id: client.auth.user().id });
+
+    if (response.error) {
+        console.error(response.error.message);
+    } else {
+        return response.data;
+    }
+}
