@@ -38,3 +38,5 @@
 5. Delete (button)
     - delete function in fetch-utils
     - add-event listener to call the delete function
+
+**_ Added Netlify Deployment _**
