@@ -1,7 +1,7 @@
 /* Imports */
 // this will check if we have a user and set signout link if it exists
 import './auth/user.js';
-import { createListItem, getListItems } from './fetch-utils.js';
+import { createListItem, getListItems, editListItem } from './fetch-utils.js';
 import { renderListItem } from './render-utils.js';
 
 /* Get DOM Elements */
@@ -21,6 +21,7 @@ form.addEventListener('submit', async (e) => {
     const data = new FormData(form);
     const item = data.get('item');
     const amount = data.get('amount');
+    form.reset;
 
     const newItem = await createListItem(item, amount);
     if (newItem) {
@@ -36,11 +37,18 @@ async function fetchAndDisplayList() {
 
     const list = await getListItems();
 
-    for (let item of list) {
-        const listItemEl = renderListItem(item);
-        listItemEl.addEventListener('click', async () => {
-            await fetchAndDisplayList();
-        });
-        listEl.append(listItemEl);
+    if (list) {
+        for (let item of list) {
+            const listItemEl = renderListItem(item);
+            listItemEl.addEventListener('click', async () => {
+                await editListItem(item);
+                await fetchAndDisplayList();
+            });
+            if (item.bought) {
+                listItemEl.classList.add('cross-out-true');
+            }
+
+            listEl.append(listItemEl);
+        }
     }
 }

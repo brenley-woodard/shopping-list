@@ -50,3 +50,16 @@ export async function getListItems() {
         return response.data;
     }
 }
+
+export async function editListItem(item) {
+    const response = await client
+        .from('groceries')
+        .update({ bought: !item.bought })
+        .match({ id: item.id });
+
+    if (response.error) {
+        console.error(response.error.message);
+    } else {
+        return response.data;
+    }
+}
