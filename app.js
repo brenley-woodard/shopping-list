@@ -7,10 +7,14 @@ import { renderListItem } from './render-utils.js';
 /* Get DOM Elements */
 const form = document.querySelector('.create-form');
 const error = document.getElementById('error');
-const listEl = document.querySelector('list');
+const listEl = document.getElementById('list');
 /* State */
 
 /* Events */
+window.addEventListener('load', async () => {
+    await fetchAndDisplayList();
+});
+
 form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -20,19 +24,23 @@ form.addEventListener('submit', async (e) => {
 
     const newItem = await createListItem(item, amount);
     if (newItem) {
-        // display that item
-        // display the whole list (clear out old list, fetch it again)
+        fetchAndDisplayList();
     } else {
         error.textContent = 'Something went wrong';
     }
 });
+
 /* Display Functions */
 async function fetchAndDisplayList() {
     listEl.textContent = '';
-    //call our fetch to supabase 
+
     const list = await getListItems();
 
-    if (list) {
-        for(let item of list)
+    for (let item of list) {
+        const listItemEl = renderListItem(item);
+        listItemEl.addEventListener('click', async () => {
+            await fetchAndDisplayList();
+        });
+        listEl.append(listItemEl);
     }
 }
