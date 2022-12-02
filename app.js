@@ -1,13 +1,14 @@
 /* Imports */
 // this will check if we have a user and set signout link if it exists
 import './auth/user.js';
-import { createListItem, getListItems, editListItem } from './fetch-utils.js';
+import { createListItem, getListItems, editListItem, deleteList } from './fetch-utils.js';
 import { renderListItem } from './render-utils.js';
 
 /* Get DOM Elements */
 const form = document.querySelector('.create-form');
 const error = document.getElementById('error');
-const listEl = document.getElementById('list');
+const listEl = document.querySelector('.list');
+const deleteButton = document.querySelector('.delete');
 /* State */
 
 /* Events */
@@ -29,6 +30,11 @@ form.addEventListener('submit', async (e) => {
     } else {
         error.textContent = 'Something went wrong';
     }
+});
+
+deleteButton.addEventListener('click', async () => {
+    await deleteList();
+    await fetchAndDisplayList();
 });
 
 /* Display Functions */
