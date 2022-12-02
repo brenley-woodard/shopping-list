@@ -1,26 +1,42 @@
-## The Golden Rule:
+![](./assets/auth.png) ![](./assets/main.png)
 
-🦸 🦸‍♂️ `Stop starting and start finishing.` 🏁
+# Vertical Slices
 
-If you work on more than one feature at a time, you are guaranteed to multiply your bugs and your anxiety.
+-   Users should be able to add items to their shopping list (CREATE)
+-   Users should see a list of shopping items (READ)
+-   Users should be able to mark items as bought (UPDATE)
+-   Users should be able to delete all the items from their list (DELETE)
 
-## Making a plan
+![](./assets/rubric.png)
 
-1. **Make a drawing of your app. Simple "wireframes"**
-1. **Once you have a drawing, name the HTML elements you'll need to realize your vision**
-1. **For each HTML element ask: Why do I need this?**
-1. **Once we know _why_ we need each element, think about how to implement the "Why" as a "How"**
-1. **Find all the 'events' (user clicks, form submit, on load etc) in your app. Ask one by one, "What happens when" for each of these events. Does any state change?**
-1. **Think about how to validate each of your features according to a Definition of Done**
-1. **Consider what features _depend_ on what other features. Use this dependency logic to figure out what order to complete tasks.**
+1. Set up database
 
-Additional considerations:
+    - make a table
+    - foreign key relationship to users table (uuid)
+    - rls for user_id = uid()
 
--   Ask: which of your HTML elements need to be hard coded, and which need to be dynamically generated?
--   Consider your data model.
-    -   What kinds of objects (i.e., Dogs, Friends, Todos, etc) will you need?
-    -   What are the key/value pairs?
-    -   What arrays might you need?
-    -   What needs to live in a persistence layer?
--   Is there some state we need to initialize?
--   Ask: should any of this work be abstracted into functions? (i.e., is the work complicated? can it be reused?)
+2. Create (form)
+
+    - create function in fetch-utils
+    - add submit event listener
+    - grab data using new FormData and send to supabase
+
+3. List all items (ul)
+
+    - fetch function in fetch-utils
+    - render function in render-utils
+    - write display function in app.js
+    - call display function on page load
+
+4. Update Item
+
+    - cross out item
+    - update function in fetch-utils
+    - event handler in list el (when they are rendered, we make them clickable)
+    - re-display the list (call display function again)
+
+5. Delete (button)
+    - delete function in fetch-utils
+    - add-event listener to call the delete function
+
+**_ Added Netlify Deployment _**
